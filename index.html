@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0c12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="THE AGENCY">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>THE AGENCY</title>
+<style>
+:root{
+ --bg:#0a0c12;--panel:#111522;--panel2:#171c2b;--line:#252c3d;--text:#f5f6f8;
+ --muted:#9299aa;--gold:#d2aa46;--red:#e35c69;--green:#62c793;--blue:#69a9ff;
+ --safe-top:env(safe-area-inset-top);--safe-bottom:env(safe-area-inset-bottom)
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+body{min-height:100%;padding-top:var(--safe-top);padding-bottom:calc(74px + var(--safe-bottom))}
+button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+button:disabled{opacity:.45}
+.app{max-width:980px;margin:auto;padding:14px 14px 26px}
+.hero{padding:15px 16px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#171b28,#0e111a);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:180px;height:180px;right:-85px;top:-100px;border:1px solid rgba(210,170,70,.23);border-radius:50%}
+.kicker{font-size:10px;letter-spacing:.22em;color:var(--gold);font-weight:800}
+h1{font-size:30px;line-height:1;margin:5px 0 4px;letter-spacing:-.04em}
+.sub{color:var(--muted);font-size:13px}
+.toprow{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.week{border-left:1px solid var(--line);padding-left:13px;text-align:right}.week b{font-size:27px;display:block}.week small{color:var(--muted)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0}
+.stat{border:1px solid var(--line);border-radius:17px;padding:12px;background:var(--panel)}
+.stat span{font-size:10px;color:var(--muted);letter-spacing:.12em}.stat strong{display:block;font-size:20px;margin-top:3px}
+.bar{height:5px;border-radius:999px;background:#282d39;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold);border-radius:inherit}
+.tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 10px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tabs button{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:9px 13px;white-space:nowrap;min-height:40px}
+.tabs button.active{border-color:var(--gold);color:var(--gold);background:#1b1820}
+.view{display:none}.view.active{display:block}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:15px;margin-bottom:10px}
+.cardhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.label{font-size:10px;letter-spacing:.15em;font-weight:800;color:var(--muted)}.danger{color:var(--red)}
+.pill{font-size:10px;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--muted)}
+h2{font-size:22px;line-height:1.1;margin:8px 0}h3{margin:2px 0 5px}
+.caseText{font-size:14px;line-height:1.5;color:#c3c8d4}
+.person{display:flex;align-items:center;gap:11px;margin:12px 0;padding:10px;background:var(--panel2);border-radius:15px}
+.avatar{width:43px;height:43px;border-radius:13px;background:#242a38;display:grid;place-items:center;font-weight:900;color:var(--gold)}
+.person small,.muted{color:var(--muted)}
+.choices{display:grid;gap:8px}
+.choice{width:100%;border:1px solid var(--line);background:var(--panel2);border-radius:15px;text-align:left;padding:13px 14px;min-height:52px}
+.choice b{display:block}.choice small{display:block;color:var(--muted);margin-top:3px}
+.result{margin-top:10px;border-left:3px solid var(--gold);background:#171923;border-radius:10px;padding:10px;font-size:13px}
+.feed{display:grid;gap:7px}.feed div{font-size:12px;padding:9px 10px;border-left:2px solid #4b566d;background:var(--panel2);border-radius:8px;color:#c5cad5}
+.grid{display:grid;gap:9px}.client{border:1px solid var(--line);background:var(--panel);border-radius:17px;padding:13px}
+.clienttop{display:flex;justify-content:space-between;gap:9px}.client .name{font-weight:800}.client .sector{color:var(--gold);font-size:11px}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.mini div{background:var(--panel2);border-radius:10px;padding:7px;text-align:center}.mini b{display:block}.mini span{font-size:9px;color:var(--muted)}
+.action{border:1px solid var(--line);background:var(--panel2);border-radius:13px;padding:11px 12px;min-height:44px}
+.primary{background:var(--gold);color:#17140b;border-color:var(--gold);font-weight:900}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row .action{flex:1}
+.bottom{position:fixed;left:0;right:0;bottom:0;padding:8px 10px calc(8px + var(--safe-bottom));background:rgba(10,12,18,.96);border-top:1px solid var(--line);z-index:20}
+.bottomin{max-width:980px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.navbtn{border:0;background:transparent;color:var(--muted);font-size:10px;min-height:52px;border-radius:12px}.navbtn b{font-size:18px;display:block;line-height:1.1}.navbtn.active{color:var(--gold);background:#171923}
+.install{display:none;margin-top:10px;border:1px dashed #555d70;border-radius:13px;padding:10px;font-size:12px;color:var(--muted)}
+.notice{font-size:12px;color:var(--muted);margin:9px 1px}
+@media(min-width:720px){
+ .stats{grid-template-columns:repeat(4,1fr)}.dashboardgrid{display:grid;grid-template-columns:1.4fr .8fr;gap:10px}.grid{grid-template-columns:repeat(2,1fr)}
+ .bottom{position:static;padding:0;border:0;background:none}.bottomin{display:none}body{padding-bottom:0}.app{padding-bottom:40px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="hero">
+    <div class="toprow">
+      <div><div class="kicker">PRESENT TALENT GROUP</div><h1>THE AGENCY</h1><div class="sub">Talent. Money. Fame. Secrets.</div></div>
+      <div class="week"><small>WEEK</small><b id="week">1</b><small id="season">Season 1</small></div>
+    </div>
+    <div id="installHint" class="install">iPhone: open in Safari → Share → Add to Home Screen.</div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><span>CASH</span><strong id="cash">€25,000</strong></div>
+    <div class="stat"><span>REPUTATION</span><strong id="rep">50</strong><div class="bar"><i id="repbar" style="width:50%"></i></div></div>
+    <div class="stat"><span>INFLUENCE</span><strong id="inf">10</strong><div class="bar"><i id="infbar" style="width:10%"></i></div></div>
+    <div class="stat"><span>CLIENTS</span><strong id="clientCount">1</strong><span id="staffText">0 staff · 0 risks</span></div>
+  </section>
+
+  <div class="tabs" id="desktopTabs">
+    <button data-view="dashboard" class="active">Dashboard</button><button data-view="clients">Clients</button><button data-view="scouting">Scouting</button><button data-view="staff">Staff</button><button data-view="agency">Agency</button>
+  </div>
+
+  <section id="dashboard" class="view active">
+    <div class="dashboardgrid">
+      <div>
+        <div class="card">
+          <div class="cardhead"><span class="label danger">LIVE CASE</span><span id="severity" class="pill">Priority A</span></div>
+          <h2 id="caseTitle"></h2>
+          <div id="caseText" class="caseText"></div>
+          <div id="casePerson" class="person"></div>
+          <div id="choices" class="choices"></div>
+          <div id="result" class="result" hidden></div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="cardhead"><span class="label">FEATURED CLIENT</span><span id="featuredSector" class="pill"></span></div>
+          <div id="featured"></div>
+        </div>
+        <div class="card">
+          <div class="cardhead"><span class="label">OPERATIONS</span><span class="pill" id="hq">HQ Lv.1</span></div>
+          <div class="grid" style="margin-top:10px">
+            <button class="action" id="hire">Hire junior agent · €5k</button>
+            <button class="action" id="campaign">Scouting campaign · €2k</button>
+            <button class="action" id="upgrade">Upgrade HQ · <span id="upgradeCost">€15k</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card"><div class="cardhead"><span class="label">AGENCY WIRE</span><span class="pill">Private feed</span></div><div id="feed" class="feed" style="margin-top:10px"></div></div>
+    <div class="row"><button class="action" id="save">Save</button><button class="action" id="load">Load</button><button class="action" id="newCareer">New Career</button><button class="action primary" id="advance">ADVANCE WEEK →</button></div>
+  </section>
+
+  <section id="clients" class="view"><div class="cardhead"><div><span class="label">PORTFOLIO</span><h2>Your Clients</h2></div><span id="portfolio" class="pill"></span></div><div id="clientGrid" class="grid"></div></section>
+  <section id="scouting" class="view"><div class="cardhead"><div><span class="label">MARKET</span><h2>Scouting Board</h2></div><button id="refreshScout" class="action">Refresh €1k</button></div><p class="notice">Find athletes, artists, creators, actors and TV talent before rival agencies do.</p><div id="scoutGrid" class="grid"></div></section>
+  <section id="staff" class="view"><div class="cardhead"><div><span class="label">TEAM</span><h2>Your Staff</h2></div></div><div id="staffGrid" class="grid"></div></section>
+  <section id="agency" class="view"><div class="card"><span class="label">HEADQUARTERS</span><h3 id="agencyHQ"></h3><p id="agencyHQDesc" class="muted"></p></div><div class="grid"><div class="client"><span class="label">WEEKLY REVENUE</span><h3 id="revenue"></h3></div><div class="client"><span class="label">WEEKLY BURN</span><h3 id="burn"></h3></div><div class="client"><span class="label">RISK EXPOSURE</span><h3 id="risk"></h3></div><div class="client"><span class="label">CAREER SCORE</span><h3 id="score"></h3></div></div></section>
+</div>
+
+<nav class="bottom"><div class="bottomin">
+<button class="navbtn active" data-view="dashboard"><b>◆</b>Home</button>
+<button class="navbtn" data-view="clients"><b>★</b>Clients</button>
+<button class="navbtn" data-view="scouting"><b>⌕</b>Scout</button>
+<button class="navbtn" data-view="staff"><b>♟</b>Staff</button>
+<button class="navbtn" data-view="agency"><b>▦</b>Agency</button>
+</div></nav>
+
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const sectors=["Football","Cycling","Tennis","Pop Music","Influencer","Film","Television"];
+const first=["Noah","Mila","Liam","Sofia","Lena","Lucas","Emma","Arthur","Nora","Victor","Aya","Mason","Elise","Finn","Zoë","Oscar"];
+const last=["Vermeulen","De Smet","Martens","Dubois","Janssens","Peeters","Leroy","Jacobs","Willems","Claes","Maes","Van den Berg"];
+const cases=[
+["Transfer War","A foreign club is pushing hard for your client. The money is huge, but the family does not want to move.",["Force the move","Broker a compromise","Back the family"]],
+["Blackmail Attempt","Someone claims to have compromising photos from a one-night stand and demands money before the story reaches the press.",["Bring in legal counsel","Deploy crisis PR","Risk a cover-up"]],
+["Family Emergency","Your client forgot an important family birthday while sponsors expect an appearance the same evening.",["Arrange a premium surprise","Reschedule sponsor duties","Tell the client to handle it"]],
+["Doping Allegation","A journalist says a source has linked your athlete to a prohibited substance. Nothing has been proven.",["Cooperate and seek legal advice","Challenge the allegation publicly","Try to bury the story"]],
+["Paternity Claim","An ex-partner privately claims your client is the parent of her child and requests discretion and a DNA test.",["Handle privately via lawyers","Prepare a public statement","Ignore the claim"]],
+["Premiere Meltdown","Your actor client is intoxicated hours before a major premiere and refuses to leave the hotel.",["Send a crisis manager","Cancel the appearance","Let them attend"]],
+["Brand Morality Clause","A lucrative sponsor offer contains strict conduct clauses that could become a major future liability.",["Sign the contract","Renegotiate the clauses","Walk away"]],
+["Tour Exhaustion","A pop client is exhausted, irritable and wants to cancel three sold-out shows.",["Protect the artist and postpone","Offer extra support and continue","Force the schedule"]],
+["Influencer Backlash","An old offensive post from your creator client has gone viral again overnight.",["Issue a sincere statement","Take them offline temporarily","Attack the critics"]],
+["Contract Poaching","A rival agent has contacted your rising star with promises of a bigger network and lower commission.",["Improve your offer","Confront the rival publicly","Trust the relationship"]]
+];
+const effects=[
+[{cash:13000,rep:-4,inf:5},{cash:6500,rep:4,inf:3},{cash:1500,rep:5,inf:-1}],
+[{cash:-3500,rep:5,inf:1},{cash:-6500,rep:3,inf:3},{cash:-2000,rep:-7,inf:5,risk:1}],
+[{cash:-3000,rep:4,inf:0},{cash:-1000,rep:1,inf:-1},{cash:0,rep:-3,inf:0}],
+[{cash:-6000,rep:7,inf:0},{cash:-3000,rep:-1,inf:4},{cash:-4500,rep:-9,inf:6,risk:1}],
+[{cash:-4000,rep:5,inf:1},{cash:-1500,rep:2,inf:2},{cash:0,rep:-7,inf:0,risk:1}],
+[{cash:-5000,rep:5,inf:2},{cash:-2500,rep:-1,inf:0},{cash:0,rep:-8,inf:2,risk:1}],
+[{cash:16000,rep:2,inf:3},{cash:10000,rep:3,inf:5},{cash:0,rep:2,inf:0}],
+[{cash:-7000,rep:6,inf:-1},{cash:-3500,rep:3,inf:1},{cash:9000,rep:-6,inf:2,risk:1}],
+[{cash:-3000,rep:5,inf:0},{cash:-1200,rep:2,inf:0},{cash:1000,rep:-8,inf:3,risk:1}],
+[{cash:-5000,rep:4,inf:2},{cash:0,rep:-3,inf:3},{cash:0,rep:5,inf:0}]
+];
+let state, scouts=[];
+function person(sector){
+ return {id:crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2),name:first[Math.floor(Math.random()*first.length)]+" "+last[Math.floor(Math.random()*last.length)],sector:sector||sectors[Math.floor(Math.random()*sectors.length)],fame:15+Math.floor(Math.random()*55),loyalty:40+Math.floor(Math.random()*45),potential:45+Math.floor(Math.random()*50),value:250000+Math.floor(Math.random()*9750000)}
+}
+function initial(){
+ const p={id:"n1",name:"Noah Vermeulen",sector:"Football",fame:32,loyalty:55,potential:68,value:1800000};
+ return {season:1,week:1,cash:25000,rep:50,inf:10,hq:1,risks:0,clients:[p],staff:[],resolved:false,feed:["NEW CAREER — Present Talent Group has opened its doors."]};
+}
+function fmt(n){return new Intl.NumberFormat("en-BE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(n)}
+function initials(n){return n.split(" ").map(x=>x[0]).slice(0,2).join("")}
+function log(t){state.feed.unshift(t);state.feed=state.feed.slice(0,7)}
+function newCase(){
+ const i=Math.floor(Math.random()*cases.length), c=cases[i], cl=state.clients[Math.floor(Math.random()*state.clients.length)];
+ state.caseIndex=i;state.caseClient=cl.id;state.resolved=false;
+ $("caseTitle").textContent=c[0];$("caseText").textContent=c[1];$("severity").textContent=Math.random()<.3?"Priority S":"Priority A";
+ $("casePerson").innerHTML=`<div class="avatar">${initials(cl.name)}</div><div><b>${cl.name}</b><br><small>${cl.sector} · Fame ${cl.fame} · Loyalty ${cl.loyalty}</small></div>`;
+ $("result").hidden=true;
+ const ch=$("choices");ch.innerHTML="";
+ c[2].forEach((txt,j)=>{const b=document.createElement("button");b.className="choice";b.innerHTML=`<b>${txt}</b><small>${j===0?"Professional response":j===1?"Calculated response":"High-risk response"}</small>`;b.onclick=()=>choose(j);ch.appendChild(b)});
+}
+function choose(j){
+ if(state.resolved)return;state.resolved=true;
+ const e=effects[state.caseIndex][j];state.cash+=e.cash||0;state.rep=Math.max(0,Math.min(100,state.rep+(e.rep||0)));state.inf=Math.max(0,Math.min(100,state.inf+(e.inf||0)));state.risks+=e.risk||0;
+ const cl=state.clients.find(x=>x.id===state.caseClient);if(cl){cl.loyalty=Math.max(0,Math.min(100,cl.loyalty+(j===2?-4:2)))}
+ log(cases[state.caseIndex][0].toUpperCase()+" — "+cases[state.caseIndex][2][j]);
+ [...$("choices").children].forEach(x=>x.disabled=true);
+ $("result").hidden=false;$("result").textContent=`Cash ${e.cash>=0?"+":""}${fmt(e.cash||0)} · Reputation ${e.rep>=0?"+":""}${e.rep||0} · Influence ${e.inf>=0?"+":""}${e.inf||0}${e.risk?" · +1 confidential risk":""}`;
+ render();
+}
+function advance(){
+ if(!state.resolved){$("result").hidden=false;$("result").textContent="Resolve the current case before advancing.";return}
+ state.week++;if(state.week>52){state.week=1;state.season++}
+ const revenue=state.clients.reduce((a,c)=>a+350+Math.round(c.fame*12),0);
+ const burn=1200+state.hq*500+state.staff.length*900;
+ state.cash+=revenue-burn;
+ if(state.risks>0&&Math.random()<Math.min(.45,.055*state.risks)){state.rep=Math.max(0,state.rep-8);state.cash-=3500;log("LEAK — A confidential matter has reached the press.")}
+ state.clients.forEach(c=>{c.fame=Math.max(1,Math.min(100,c.fame+Math.floor(Math.random()*5)-2));c.potential=Math.max(c.fame,Math.min(100,c.potential+Math.floor(Math.random()*3)-1))});
+ if(state.cash<-20000||state.rep<=0){alert("Your agency has collapsed. Start a new career.");return}
+ newCase();render();saveAuto();
+}
+function makeScouts(){scouts=Array.from({length:4},()=>person());renderScouts()}
+function sign(id){const p=scouts.find(x=>x.id===id);if(!p)return;const fee=1500+Math.round(p.fame*35);if(state.cash<fee){alert("Not enough cash.");return}state.cash-=fee;state.clients.push(p);state.inf=Math.min(100,state.inf+2);scouts=scouts.filter(x=>x.id!==id);log("SIGNED — "+p.name+" joins the agency.");render();renderScouts();saveAuto()}
+function renderClients(){
+ $("clientGrid").innerHTML=state.clients.map(c=>`<div class="client"><div class="clienttop"><div><div class="sector">${c.sector}</div><div class="name">${c.name}</div></div><span class="pill">${fmt(c.value)}</span></div><div class="mini"><div><b>${c.fame}</b><span>FAME</span></div><div><b>${c.loyalty}</b><span>LOYALTY</span></div><div><b>${c.potential}</b><span>POTENTIAL</span></div></div></div>`).join("");
+ $("portfolio").textContent=fmt(state.clients.reduce((a,c)=>a+c.value,0));
+}
+function renderScouts(){
+ $("scoutGrid").innerHTML=scouts.map(c=>`<div class="client"><div class="clienttop"><div><div class="sector">${c.sector}</div><div class="name">${c.name}</div></div><span class="pill">Fame ${c.fame}</span></div><div class="mini"><div><b>${c.loyalty}</b><span>LOYALTY</span></div><div><b>${c.potential}</b><span>POTENTIAL</span></div><div><b>${fmt(1500+Math.round(c.fame*35))}</b><span>SIGNING FEE</span></div></div><button class="action primary" style="width:100%;margin-top:9px" data-sign="${c.id}">SIGN TALENT</button></div>`).join("");
+ $("scoutGrid").querySelectorAll("[data-sign]").forEach(b=>b.onclick=()=>sign(b.dataset.sign))
+}
+function renderStaff(){
+ $("staffGrid").innerHTML=state.staff.length?state.staff.map(s=>`<div class="client"><div class="sector">${s.role}</div><div class="name">${s.name}</div><div class="muted">Skill ${s.skill} · Weekly salary €900</div></div>`).join(""):`<div class="card muted">No employees yet. Your first junior agent will help scale the portfolio.</div>`
+}
+function render(){
+ $("week").textContent=state.week;$("season").textContent="Season "+state.season;$("cash").textContent=fmt(state.cash);$("rep").textContent=state.rep;$("inf").textContent=state.inf;$("clientCount").textContent=state.clients.length;$("staffText").textContent=`${state.staff.length} staff · ${state.risks} risks`;
+ $("repbar").style.width=state.rep+"%";$("infbar").style.width=state.inf+"%";$("hq").textContent="HQ Lv."+state.hq;$("upgradeCost").textContent=fmt(state.hq*15000);
+ const f=state.clients[0];$("featuredSector").textContent=f.sector;$("featured").innerHTML=`<div class="person"><div class="avatar">${initials(f.name)}</div><div><h3>${f.name}</h3><small>${f.sector} · ${fmt(f.value)}</small></div></div><div class="mini"><div><b>${f.fame}</b><span>FAME</span></div><div><b>${f.loyalty}</b><span>LOYALTY</span></div><div><b>${f.potential}</b><span>POTENTIAL</span></div></div>`;
+ $("feed").innerHTML=state.feed.map(x=>`<div>${x}</div>`).join("");
+ const rev=state.clients.reduce((a,c)=>a+350+Math.round(c.fame*12),0),burn=1200+state.hq*500+state.staff.length*900;
+ $("agencyHQ").textContent=`Brussels Office · Level ${state.hq}`;$("agencyHQDesc").textContent=state.hq<3?"A small but ambitious operation. Upgrade to support a larger global portfolio.":"A serious international talent operation.";
+ $("revenue").textContent=fmt(rev);$("burn").textContent=fmt(burn);$("risk").textContent=state.risks===0?"Low":state.risks<3?"Elevated":"Critical";$("score").textContent=Math.max(0,Math.round(state.cash+state.rep*500+state.inf*300+state.clients.length*2500-state.risks*4000)).toLocaleString();
+ renderClients();renderStaff();
+}
+function show(v){document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id===v));document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===v));window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>show(b.dataset.view));
+$("advance").onclick=advance;
+$("hire").onclick=()=>{if(state.cash<5000)return alert("Not enough cash.");state.cash-=5000;state.staff.push({name:first[Math.floor(Math.random()*first.length)]+" "+last[Math.floor(Math.random()*last.length)],role:"Junior Agent",skill:35+Math.floor(Math.random()*35)});state.inf=Math.min(100,state.inf+2);log("STAFF — A junior agent has joined.");render();saveAuto()};
+$("campaign").onclick=()=>{if(state.cash<2000)return alert("Not enough cash.");state.cash-=2000;makeScouts();log("SCOUTING — New prospects added to the board.");render();show("scouting");saveAuto()};
+$("upgrade").onclick=()=>{const cost=state.hq*15000;if(state.cash<cost)return alert("Not enough cash.");state.cash-=cost;state.hq++;state.inf=Math.min(100,state.inf+4);log("HQ — Headquarters upgraded to level "+state.hq+".");render();saveAuto()};
+$("refreshScout").onclick=()=>{if(state.cash<1000)return alert("Not enough cash.");state.cash-=1000;makeScouts();render();saveAuto()};
+function saveAuto(){try{localStorage.setItem("theAgencySave",JSON.stringify(state))}catch(e){}}
+$("save").onclick=()=>{saveAuto();alert("Career saved on this device.")};
+$("load").onclick=()=>{try{const x=localStorage.getItem("theAgencySave");if(!x)return alert("No saved career found.");state=JSON.parse(x);newCase();render();alert("Career loaded.")}catch(e){alert("Save could not be loaded.")}};
+$("newCareer").onclick=()=>{if(confirm("Start a new career? Your current unsaved progress will be lost.")){state=initial();makeScouts();newCase();render();saveAuto()}};
+state=initial();makeScouts();newCase();render();
+const standalone=window.matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+if(!standalone)$("installHint").style.display="block";
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./service-worker.js").catch(()=>{});
+})();
+</script>
+</body>
+</html>
