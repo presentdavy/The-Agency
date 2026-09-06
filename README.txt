@@ -1,17 +1,35 @@
-THE AGENCY — iPhone PWA v0.1
+THE AGENCY — COMPLETE TEST BUILD
 
-INSTALL ON IPHONE
-1. Upload this folder to any HTTPS web host (GitHub Pages, Netlify, Vercel, Cloudflare Pages, your own web hosting, etc.).
-2. Open the HTTPS address in Safari on the iPhone.
-3. Tap Share.
-4. Tap "Add to Home Screen".
-5. Launch THE AGENCY from the new icon.
+UPLOAD TO GITHUB PAGES
+Replace the existing files in your The-Agency repository with:
+- index.html
+- styles.css
+- app.js
+- manifest.webmanifest
+- service-worker.js
+- icons/ folder
 
-The app includes:
-- iPhone safe-area support
-- touch-friendly game UI
-- local save/load
-- offline cache after first load
-- home-screen icon and standalone PWA mode
+Keep all files in the repository root except the icons inside /icons.
 
-Important: iOS requires the app to be served through HTTPS for full PWA/offline functionality.
+FEATURES IN THIS BUILD
+- phone-style manager interface
+- live time/day/week/season simulation
+- messages with explicit costs, time, risk and expected consequences
+- mail + linked deal offers
+- calendar and missed-deadline consequences
+- full client dossiers: career, income, commission, value, family, stress, loyalty, entourage and confidential risk
+- real deal negotiation system
+- crisis room with risk/cost/time information
+- scouting market with filters and agency capacity
+- staff payroll, skill and capacity
+- finance/ledger system
+- media/world simulation
+- rival agencies
+- new random deals and crises over time
+- weekly accounting
+- agency upgrades
+- local autosave
+- installable PWA / iPhone home-screen support
+- offline cache after first successful load
+
+This is designed as a complete integrated playable test build rather than a UI mock-up.

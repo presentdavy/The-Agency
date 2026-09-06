@@ -3,9 +3,9 @@
   "short_name": "Agency",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0a0c12",
-  "theme_color": "#0a0c12",
-  "description": "Talent. Money. Fame. Secrets. A celebrity and sports management tycoon.",
+  "background_color": "#080a0f",
+  "theme_color": "#080a0f",
+  "description": "Celebrity and sports talent management tycoon.",
   "icons": [
     {
       "src": "icons/icon-192.png",
